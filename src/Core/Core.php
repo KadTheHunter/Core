@@ -342,15 +342,6 @@ class Core extends PluginBase{
 				$this->setSeeMessages($sender);
 			}
 		}
-		if(strtolower($cmd->getName()) == "build"){
-			$level = $sender->getLevel();
-			$rand = mt_rand(250000, -250000);
-			$x = $sender->x + $rand;
-			$z = $sender->z + $rand;
-			$y = $level->getHighestBlockAt($x, $z);
-			$pos = new Vector3($x, $y+1, $z);
-			$sender->teleport($pos);
-		}
         # All commands after this will likely need modifications more than once.
 		if(strtolower($cmd->getName()) == "hub"){
 			if($sender instanceof Player){
