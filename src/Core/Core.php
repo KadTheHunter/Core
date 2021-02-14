@@ -344,7 +344,7 @@ class Core extends PluginBase{
 		}
 		if(strtolower($cmd->getName()) == "build"){
 			$level = $sender->getLevel();
-			$rand  mt_rand(250000, -250000);
+			$rand = mt_rand(250000, -250000);
 			$x = $sender->x + $rand;
 			$z = $sender->z + $rand;
 			$y = $level->getHighestBlockAt($x, $z);
