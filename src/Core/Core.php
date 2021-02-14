@@ -345,9 +345,9 @@ class Core extends PluginBase{
         # All commands after this will likely need modifications more than once.
 		if(strtolower($cmd->getName()) == "hub"){
 			if($sender instanceof Player){
-				$x = 0;
-				$y = 43;
-				$z = 0;
+				$x = 0.5;
+				$y = 44;
+				$z = 0.5;
 				$level = $this->getServer()->getLevelByName("freebuild");
 				$pos = new Position($x, $y, $z, $level);
 				$sender->teleport($pos);
