@@ -133,7 +133,7 @@ class Core extends PluginBase{
             }
 			switch($data){
 				case 0: // General Info
-					$infoform = new SimpleForm(function (Player $player, $data){
+					$infoForm = new SimpleForm(function (Player $player, $data){
 						if($data === null){
 							return true;
 						}
