@@ -33,6 +33,9 @@ use pocketmine\network\mcpe\protocol\{
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
 
+use jojoe77777\FormAPI;
+use jojoe77777\FormAPI\SimpleForm;
+
 use function array_diff;
 use function scandir;
 
@@ -122,6 +125,19 @@ class Core extends PluginBase{
 	public function unsetSeeMessages(Player $player){
 		unset($this->seeMessages[$player->getLowerCaseName()]);
 		$player->sendMessage($this->mch . TF::GREEN . " You have enabled seeing the rotating messages. Do /tm to disable them.");
+	}
+	/** @var FormAPI $api */
+	public function infoForm(Player $player){
+		$api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
+        $form = $api->createSimpleForm(function (Player $player, $data){
+            if ($data === null){
+                return true;
+            }
+        });
+        $form->setTitle("Main Form");
+        $form->setContent("Test 1234567890 ABCEDFGHIJKLMNOPQRSTUVWXYZ abcedfghijklmnopqrstuvwxyz §aMinecraft §bHangout §eServer §dMCH ");
+        $form->sendToPlayer($player);
+        return $form;
 	}
 
 
@@ -379,6 +395,13 @@ class Core extends PluginBase{
 			    $sender->sendMessage("§f- §eThat's it, have fun §b:)§e");
 			}else{
 				$sender->sendMessage("If you have console access you BETTER know the fucking rules...");
+			}
+		}
+		if(strtolower($cmd->getName()) == "info"){
+			if($sender instanceof Player){
+				$this->infoForm($sender);
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		return true;
