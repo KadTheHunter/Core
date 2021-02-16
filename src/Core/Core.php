@@ -143,8 +143,8 @@ class Core extends PluginBase{
 								break;
 						}
 					});
-					$infoForm->setTitle("General Information");
-					$infoForm->setContent("§e=== §bGeneral Information §e===\n\n§bWelcome to MC Hangout Server! Feel free to build anything you want out in FreeBuild (provided it follows the rules of course!).\n\n§bLava and Water are banned, due to the fact they can be easily abused, however §eVIPs §band §6Staff §bcan get and place them for you, if needed.\n\n§bStaff can protect §lfinished§r §bbuilds, but only if they are finished, and are not connected to/part of another players build.\n\n ");
+					$infoForm->setTitle("§e=== §bGeneral Information §e===");
+					$infoForm->setContent("§bWelcome to MC Hangout Server! Feel free to build anything you want out in FreeBuild (provided it follows the rules of course!).\n\n§bLava and Water are banned, due to the fact they can be easily abused, however §eVIPs §band §6Staff §bcan get and place them for you, if needed.\n\n§bStaff can protect §lfinished§r §bbuilds, but only if they are finished, and are not connected to/part of another players build.\n\n§bEntities such as Dropped Items, Experience Orbs and Mobs will clear every 60 seconds, so be careful if you're sharing items by dropping them!");
 					$infoForm->addButton("Back");
 					$infoForm->sendToPlayer($player);
 					break;
@@ -159,8 +159,8 @@ class Core extends PluginBase{
 								break;
 						}
 					});
-					$commandsForm->setTitle("Commands List");
-					$commandsForm->setContent("§e=== §bCommands List 7e===\n\n§e/clearinv §f- §bClears your inventory\n§e/friend §f- §bAllows you to friend other players\n§e/gma §f- §bSets you to Adventure gamemode\n§e/gmc §f- §bSets you to Creative gamemode\n§e/gms §f- §bSets you to Survival gamemode\n§e/home §f- §bAllows you to set, modify or delete a Home\n§e/hub §f- §bTeleports you to the Hub\n§e/info §f- §bShows the Information GUI\n§e/itemid §f- §bShows the ID and Meta of the item you're holding\n§e/lay §f- §bAllows you to lay down on any block\n§e/lock §f- §bAllows you to Lock a door, trapdoor, or chest\n§e/nick §f- §bAllows you to set or change your nickname\n/nv §f- §bGives you NightVision, or removes it if you already have it\n§e/playtime §f- §bShows how many Minecraft days you have played on the server\n§e/rules §f- §bShows the server Rules\n§e/sit §f- §bAllows you to sit down on any block\n§e/sittoggle §f- §bEnables or Disables Tap-To-Sit (recommended to disable while Building)\n§e/togglemessages §f- §bAllows you to Enable or Disable seeing the rotating messages in chat\n§e/unlock §f- §bAllows you to unlock a door you previously locked.");
+					$commandsForm->setTitle("§e=== §bCommands List §e===");
+					$commandsForm->setContent("§e/clearinv §f- §bClears your inventory\n§e/friend §f- §bAllows you to friend other players\n§e/gma §f- §bSets you to Adventure gamemode\n§e/gmc §f- §bSets you to Creative gamemode\n§e/gms §f- §bSets you to Survival gamemode\n§e/home §f- §bAllows you to set, modify or delete a Home\n§e/hub §f- §bTeleports you to the Hub\n§e/info §f- §bShows the Information GUI\n§e/itemid §f- §bShows the ID and Meta of the item you're holding\n§e/lay §f- §bAllows you to lay down on any block\n§e/lock §f- §bAllows you to Lock a door, trapdoor, or chest\n§e/nick §f- §bAllows you to set or change your nickname\n§e/nv §f- §bGives you Night Vision, or removes it if you already have it\n§e/playtime §f- §bShows how many Minecraft days you have played on the server\n§e/rules §f- §bShows the server Rules\n§e/sit §f- §bAllows you to sit down on any block\n§e/sittoggle §f- §bEnables or Disables Tap-To-Sit (recommended to disable while Building)\n§e/togglemessages §f- §bAllows you to Enable or Disable seeing the rotating messages in chat\n§e/unlock §f- §bAllows you to unlock a door you previously locked.");
 					$commandsForm->addButton("Back");
 					$commandsForm->sendToPlayer($player);
 					break;
@@ -175,15 +175,15 @@ class Core extends PluginBase{
 								break;
 						}
 					});
-					$contactUs->setTitle("Contact Us");
-					$contactUs->setContent("§e=== §bContact Us §e===\n\n§bYou can find us on our Discord:\n§ehttps://discord.gg/kMCYT7vda7 \n§bor contact the Owner directly on Discord:\n§eKaddicus#5231 \n\n§bAll other inquiries should be directed via email to:\n§ekaddicusthealmighty@gmail.com");
+					$contactUs->setTitle("§e=== §bContact Us §e===");
+					$contactUs->setContent("§bYou can find us on our Discord:\n§ehttps://discord.gg/kMCYT7vda7 \n§bor contact the Owner directly on Discord:\n§eKaddicus#5231 \n\n§bAll other inquiries should be directed via email to:\n§ekaddicusthealmighty@gmail.com");
 					$contactUs->addButton("Back");
 					$contactUs->sendToPlayer($player);
 					break;
 			}
         });
-        $form->setTitle("Information");
-        $form->setContent("§e=== §bInformation §e===\n\n§bChoose a category below to get more information from!");
+        $form->setTitle("§e=== §bInformation §e===");
+        $form->setContent("§bChoose a category below to get more information from!");
 		$form->addButton("General Info");
 		$form->addButton("Commands");
 		$form->addButton("Contact Us");
