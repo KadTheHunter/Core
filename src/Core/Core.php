@@ -128,8 +128,7 @@ class Core extends PluginBase{
 	}
 	/** @var FormAPI $api */
 	public function infoForm(Player $player){
-		$api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
-        $form = new SimpleForm(function (Player $player, $data){
+		$form = $this->getServer()->getPluginManager()->getPlugin("FormAPI")->createSimpleForm(function (Player $player, $data){
             if ($data === null){
                 return true;
             }

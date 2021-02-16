@@ -5,6 +5,7 @@ version: 5.5.2
 mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
+depend: FormAPI
 commands:
   gms:
     description: Changes your gamemode to Creative
