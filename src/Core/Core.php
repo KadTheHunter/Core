@@ -123,6 +123,15 @@ class Core extends PluginBase{
 		unset($this->seeMessages[$player->getLowerCaseName()]);
 		$player->sendMessage($this->mch . TF::GREEN . " You have enabled seeing the rotating messages. Do /tm to disable them.");
 	}
+
+
+
+	#################################################################################################
+	// Everything after this is Commands
+	#################################################################################################
+
+
+
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args ) :bool
     {
         if(strtolower($cmd->getName()) == "gms"){
