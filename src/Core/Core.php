@@ -33,7 +33,6 @@ use pocketmine\network\mcpe\protocol\{
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
 
-use jojoe77777\FormAPI;
 use jojoe77777\FormAPI\SimpleForm;
 
 use function array_diff;
@@ -128,7 +127,7 @@ class Core extends PluginBase{
 	}
 	/** @var FormAPI $api */
 	public function infoForm(Player $player){
-		$form = $this->getServer()->getPluginManager()->getPlugin("FormAPI")->createSimpleForm(function (Player $player, $data){
+		$form = new SimpleForm(function (Player $player, $data){
             if ($data === null){
                 return true;
             }
