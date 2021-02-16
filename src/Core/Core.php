@@ -137,7 +137,6 @@ class Core extends PluginBase{
         $form->setTitle("Main Form");
         $form->setContent("Test 1234567890 ABCEDFGHIJKLMNOPQRSTUVWXYZ abcedfghijklmnopqrstuvwxyz §aMinecraft §bHangout §eServer §dMCH ");
         $form->sendToPlayer($player);
-        return $form;
 	}
 
 
