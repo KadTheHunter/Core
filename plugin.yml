@@ -48,7 +48,6 @@ commands:
     aliases: ["pt", "playt"]
   togglemessages:
     description: Allows toggling the rotating messages on/off
-    aliases: ["tm"]
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
