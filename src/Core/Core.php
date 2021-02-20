@@ -303,7 +303,7 @@ class Core extends PluginBase{
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.tpworld.use")){
 					if(isset($args[0])){
-						$world = strtolower($args[0]);
+						$world = $args[0];
 						if($this->getServer()->isLevelLoaded($world)){
 							$level = $this->getServer()->getLevelByName($world);
 							$sender->teleport($level->getSafeSpawn());
