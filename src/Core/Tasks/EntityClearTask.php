@@ -24,6 +24,7 @@ class EntityClearTask extends Task {
     public function __construct(Core $plugin){
         $this->plugin = $plugin;
     }
+    
     public function onRun(int $tick) : void{
         foreach($this->plugin->getServer()->getLevels() as $level){
             foreach($level->getEntities() as $entity){

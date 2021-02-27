@@ -21,6 +21,7 @@ class GriefPrevention implements Listener{
     public function __construct(Core $plugin){
         $this->plugin = $plugin;
     }
+    
     public function Empty(PlayerBucketEmptyEvent $event) : void{
 		$event->setCancelled(true);
 	}

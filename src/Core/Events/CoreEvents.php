@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Core\Events;
 
 use pocketmine\event\{
@@ -29,6 +30,7 @@ class CoreEvents implements Listener{
     public function __construct(Core $plugin){
         $this->plugin = $plugin;
     }
+
     public function Join(PlayerJoinEvent $event) : void{
         $name = $event->getPlayer()->getName();
 		$event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");

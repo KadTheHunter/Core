@@ -21,6 +21,7 @@ class BroadcastTask extends Task{
         $this->plugin = $plugin;
             $this->i = 0;
     }
+    
     public function onRun(int $currentTick){
         $messages = $this->plugin->cfg["message-broadcast"]["messages"];
         back:
