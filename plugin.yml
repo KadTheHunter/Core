@@ -31,6 +31,7 @@ commands:
     aliases: ["invclear"]
   tpworld:
     description: Teleports you to another world
+    usage: /tpworld <freebuild|city|treegarden>
     permission: core.tpworld.use
   itemid:
     description: Tells you the ID:Meta of the item you're holding.
