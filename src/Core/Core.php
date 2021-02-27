@@ -74,7 +74,7 @@ class Core extends PluginBase{
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig()->getAll();
 		$this->portals = yaml_parse_file($this->getDataFolder() . 'portals.yml');
-		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockBreakEvent', $listener = new PortalEvents($this), EventPriority::HIGHEST, new MethodEventExecutor('Break'), $this, true);
+		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockBreakEvent', $listener = new Events\PortalEvents($this), EventPriority::HIGHEST, new MethodEventExecutor('Break'), $this, true);
         $this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockPlaceEvent', $listener, EventPriority::HIGHEST, new MethodEventExecutor('Place'), $this, true);
 		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\player\\PlayerMoveEvent', $listener, EventPriority::MONITOR, new MethodEventExecutor('Move'), $this, true);
         $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
@@ -578,7 +578,7 @@ class Core extends PluginBase{
                     return true;
                 default:
                     $sender->sendMessage($this->mch . TF::GOLD . ' Error: Strange argument ' . $subCommand . '.');
-                    $sender->sendMessage($command->getUsage());
+                    $sender->sendMessage($cmd->getUsage());
                     return true;
             }
 		}
