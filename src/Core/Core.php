@@ -78,11 +78,11 @@ class Core extends PluginBase{
 	/** @var array $seeMessages */
 	public $seeMessages = [];
 
-	private $lockSession = array();
-	private $unlockSession = array();
-	private $infoSession = array();
-	private $handle;
-	private $itemID;
+	public $lockSession = array();
+	public $unlockSession = array();
+	public $infoSession = array();
+	public $handle;
+	public $itemID;
 
     public function onEnable(){
 		@mkdir($this->getDataFolder());
