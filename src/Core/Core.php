@@ -93,22 +93,6 @@ class Core extends PluginBase{
 	public function onDisable() : void{
         yaml_emit_file($this->getDataFolder() . 'portals.yml', $this->portals);
     }
-	public function isInPortal(Player $player) : bool{
-		$x = round($player->x);
-		$y = round($player->y);
-		$z = round($player->z);
-		foreach($this->portals as $name => $portal){
-            if(($x >= $portal['x'] && $x <= $portal['x2']) && ($y >= $portal['y'] && $y <= $portal['y2']) && ($z >= $portal['z'] && $z <= $portal['z2']) && $player->getLevel()->getFolderName() === $portal['level']){
-				if(!$player->hasPermission('portal.' . $name)){
-					$player->sendMessage($this->mch . TF::RED . " You do not have permission to use this Portal.");
-					return false;
-				}
-				$player->teleport(new Position($portal['dx'], $portal['dy'], $portal['dz'], $this->getServer()->getLevelByName($portal['dlevel'])));
-				return true;
-			}
-		}
-		return false;
-	}
     public function Lightning(Player $player) : void{
         $light = new AddActorPacket();
 		$light->type = "minecraft:lightning_bolt";
@@ -229,6 +213,22 @@ class Core extends PluginBase{
 		$form->addButton("Commands");
 		$form->addButton("Contact Us");
         $form->sendToPlayer($player);
+	}
+	public function isInPortal(Player $player) : bool{
+		$x = round($player->x);
+		$y = round($player->y);
+		$z = round($player->z);
+		foreach($this->portals as $name => $portal){
+            if(($x >= $portal['x'] && $x <= $portal['x2']) && ($y >= $portal['y'] && $y <= $portal['y2']) && ($z >= $portal['z'] && $z <= $portal['z2']) && $player->getLevel()->getFolderName() === $portal['level']){
+				if(!$player->hasPermission('portal.' . $name)){
+					$player->sendMessage($this->mch . TF::RED . " You do not have permission to use this Portal.");
+					return false;
+				}
+				$player->teleport(new Position($portal['dx'], $portal['dy'], $portal['dz'], $this->getServer()->getLevelByName($portal['dlevel'])));
+				return true;
+			}
+		}
+		return false;
 	}
 
 
