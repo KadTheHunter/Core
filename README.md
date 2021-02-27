@@ -8,10 +8,11 @@ So, the only reason this is public is so Poggit can make builds from it. I have 
 
 
 # Credit
-So I admit I used a bit of ideas and code from other plugins. Most of this Core I did myself, but some of the ideas and a bit of the code was originally done by others. Below is a list of those people.
+So I admit I used a bit of ideas and code from other plugins. Most of this Core I did myself, but lot of the ideas and a bit of the code was originally done by others. Below is a list of those people.
 - iiFlamiinBlaze (ChangeSign)
 - EvolSoft (Their Broadcaster plugin inspired and helped me to make BroadcastTask)
 - TwistedAsylumMC (EntityClear)
+- luca28pet (Portals)
 
 # Quote
 *Theory is when you know something, but it doesn't work. Practice is when something works, but you don't know why. Programmers combine theory and practice: Nothing works and they don't know why!*

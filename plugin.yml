@@ -1,7 +1,7 @@
 name: Core
 main: Core\Core
 api: 3.15.0
-version: 5.5.3
+version: 5.6.0
 mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
@@ -49,6 +49,10 @@ commands:
     aliases: ["pt", "playt"]
   togglemessages:
     description: Allows toggling the rotating messages on/off
+  portals:
+    description: Main Portals commmand
+    usage: /portal pos1|pos2|create|delete|set|list
+    permission: core.portals.admin
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
@@ -84,4 +88,7 @@ permissions:
     default: OP
   core.changesign.use:
     description: CHANGESIGN Command
+    default: OP
+  core.portals.admin:
+    description: PORTALS Commands
     default: OP

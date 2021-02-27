@@ -30,7 +30,11 @@ use pocketmine\network\mcpe\protocol\{
 	AddActorPacket,
 	PlaySoundPacket
 };
-use pocketmine\plugin\PluginBase;
+use pocketmine\event\EventPriority;
+use pocketmine\plugin\{
+	PluginBase,
+	MethodEventExecutor
+};
 use pocketmine\utils\TextFormat as TF;
 
 use jojoe77777\FormAPI\SimpleForm;
@@ -42,7 +46,18 @@ class Core extends PluginBase{
 
 	public $mch = "§7[§4§lK§r§7]§r";
 	
-	/** @var array */
+	public $sel1 = [];
+
+    public $sel2 = [];
+
+    public $pos1 = [];
+
+    public $pos2 = [];
+
+    /** @var array $portals */
+    public $portals;
+
+	/** @var array $cfg */
 	public $cfg;
 
 	/** @var array $signLines */
@@ -58,6 +73,10 @@ class Core extends PluginBase{
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig()->getAll();
+		$this->portals = yaml_parse_file($this->getDataFolder() . 'portals.yml');
+		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockBreakEvent', $listener = new PortalEvents($this), EventPriority::HIGHEST, new MethodEventExecutor('Break'), $this, true);
+        $this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockPlaceEvent', $listener, EventPriority::HIGHEST, new MethodEventExecutor('Place'), $this, true);
+		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\player\\PlayerMoveEvent', $listener, EventPriority::MONITOR, new MethodEventExecutor('Move'), $this, true);
         $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
 		$this->getServer()->getPluginManager()->registerEvents(new Events\GriefPrevention($this), $this);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
@@ -67,6 +86,25 @@ class Core extends PluginBase{
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
             }
         }
+	}
+	public function onDisable() : void{
+        yaml_emit_file($this->getDataFolder() . 'portals.yml', $this->portals);
+    }
+	public function isInPortal(Player $player) : bool{
+		$x = round($player->x);
+		$y = round($player->y);
+		$z = round($player->z);
+		foreach($this->portals as $name => $portal){
+            if(($x >= $portal['x'] && $x <= $portal['x2']) && ($y >= $portal['y'] && $y <= $portal['y2']) && ($z >= $portal['z'] && $z <= $portal['z2']) && $player->getLevel()->getFolderName() === $portal['level']){
+				if(!$player->hasPermission('portal.' . $name)){
+					$player->sendMessage($this->mch . TF::RED . " You do not have permission to use this Portal.");
+					return false;
+				}
+				$player->teleport(new Position($portal['dx'], $portal['dy'], $portal['dz'], $this->getServer()->getLevelByName($portal['dlevel'])));
+				return true;
+			}
+		}
+		return false;
 	}
     public function Lightning(Player $player) : void{
         $light = new AddActorPacket();
@@ -416,6 +454,133 @@ class Core extends PluginBase{
 			}else{
 				$this->setSeeMessages($sender);
 			}
+		}
+		if(strtolower($cmd->getName()) == "portal"){
+			if(!isset($args[0])){
+                return false;
+            }
+            $subCommand = array_shift($args);
+            switch($subCommand){
+                case 'pos1':
+                    if(!($sender instanceof Player)){
+                        $sender->sendMessage('Please run this command in-game.');
+                        return true;
+                    }
+                    if(!$sender->hasPermission('core.portals.admin')){
+                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        return true;
+                    }
+                    $this->sel1[$sender->getName()] = true;
+                    $sender->sendMessage($this->mch . TF::GREEN . ' Please place or break the first position');
+                    return true;
+                case 'pos2':
+                    if(!($sender instanceof Player)){
+                        $sender->sendMessage('Please run this command in-game.');
+                        return true;
+                    }
+                    if(!$sender->hasPermission('core.portals.admin')){
+                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        return true;
+                    }
+                    $this->sel2[$sender->getName()] = true;
+                    $sender->sendMessage($this->mch . TF::GREEN . ' Please place or break the second position');
+                    return true;
+                case 'create':
+                    if(!($sender instanceof Player)){
+                        $sender->sendMessage('Please run this command in-game.');
+                        return true;
+                    }
+                    if(!$sender->hasPermission('core.portals.admin')){
+                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        return true;
+                    }
+                    if(!isset($this->pos1[$sender->getName()], $this->pos2[$sender->getName()])){
+                        $sender->sendMessage($this->mch . TF::GOLD . ' Error: Please select both positions first');
+                        return true;
+                    }
+                    if(!isset($args[0])){
+                        $sender->sendMessage($this->mch . TF::GOLD . ' Error: Please specify the portal name');
+                        return true;
+                    }
+                    if($this->pos1[$sender->getName()][3] !== $this->pos2[$sender->getName()][3]){
+                        $sender->sendMessage($this->mch . TF::GOLD . ' Error: Positions are in different levels');
+                        return true;
+                    }
+                    if(isset($this->portals[strtolower($args[0])])){
+                        $sender->sendMessage($this->mch . TF::GOLD . ' Error: A portal with that name already exists');
+                        return true;
+                    }
+                    $this->portals[strtolower($args[0])] = [
+                        'x' => min($this->pos1[$sender->getName()][0], $this->pos2[$sender->getName()][0]),
+                        'y' => min($this->pos1[$sender->getName()][1], $this->pos2[$sender->getName()][1]),
+                        'z' => min($this->pos1[$sender->getName()][2], $this->pos2[$sender->getName()][2]),
+                        'x2' => max($this->pos1[$sender->getName()][0], $this->pos2[$sender->getName()][0]),
+                        'y2' => max($this->pos1[$sender->getName()][1], $this->pos2[$sender->getName()][1]),
+                        'z2' => max($this->pos1[$sender->getName()][2], $this->pos2[$sender->getName()][2]),
+                        'level' => $this->pos1[$sender->getName()][3],
+                        'dx' => $sender->x, 'dy' => $sender->y, 'dz' => $sender->z, 'dlevel' => $sender->getLevel()->getFolderName()
+                    ];
+                    yaml_emit_file($this->getDataFolder() . 'portals.yml', $this->portals);
+                    $sender->sendMessage($this->mch . TF::GREEN . ' Portal created');
+                    unset($this->pos1[$sender->getName()], $this->pos2[$sender->getName()]);
+                    return true;
+                case 'list':
+                    if(!$sender->hasPermission('core.portals.admin')){
+                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        return true;
+                    }
+                    $sender->sendMessage($this->mch . TF::GREEN . ' Portals: ' . implode(', ', array_keys($this->portals)));
+                    return true;
+                case 'delete':
+                    if(!$sender->hasPermission('core.portals.admin')){
+                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        return true;
+                    }
+                    if(!isset($this->portals[strtolower($args[0])])){
+                        $sender->sendMessage($this->mch . TF::GOLD . ' Error: A portal with that name does not exist');
+                        return true;
+                    }
+                    unset($this->portals[strtolower($args[0])]);
+                    yaml_emit_file($this->getDataFolder() . 'portals.yml', $this->portals);
+                    $sender->sendMessage($this->mch . TF::GREEN . ' You have deleted the portal');
+                    return true;
+                case 'fill':
+                    if(!$sender->hasPermission('core.portals.admin')){
+                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        return true;
+                    }
+                    if(!isset($args[0])){
+                        $sender->sendMessage($this->mch . TF::GOLD . ' Error: Please specify the portal name');
+                        return true;
+                    }
+                    if(!isset($args[1])){
+                        $sender->sendMessage($this->mch . TF::GOLD . ' Error: Please specify the block id');
+                        return true;
+                    }
+                    $name = strtolower($args[0]);
+                    if(!isset($this->portals[$name])){
+                        $sender->sendMessage($this->mch . TF::GOLD . ' Error: A portal with that name does not exist');
+                        return true;
+                    }
+                    for($x = $this->portals[$name]['x']; $x <= $this->portals[$name]['x2']; $x++){
+                        for($y = $this->portals[$name]['y']; $y <= $this->portals[$name]['y2']; $y++){
+                            for($z = $this->portals[$name]['z']; $z <= $this->portals[$name]['z2']; $z++){
+                                if($level->getBlockIdAt($x, $y, $z) === 0){
+                                    $level->setBlockIdAt($x, $y, $z, $args[1]);
+                                    if(isset($args[2])){
+                                        $level->setBlockDataAt($x, $y, $z, $args[2]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    $sender->sendMessage($this->mch . TF::GREEN . ' Portal filled');
+                    return true;
+                default:
+                    $sender->sendMessage($this->mch . TF::GOLD . ' Error: Strange argument ' . $subCommand . '.');
+                    $sender->sendMessage($command->getUsage());
+                    return true;
+            }
 		}
         # All commands after this will likely need modifications more than once.
 		if(strtolower($cmd->getName()) == "hub"){
