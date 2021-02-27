@@ -41,6 +41,7 @@ commands:
     aliases: ["ln", "lightn"]
   changesign:
     description: Allows you to change sign text
+    usage: /cs <Line '#'> <Text>
     permission: core.changesign.use
     aliases: ["cs"]
   playtime:
