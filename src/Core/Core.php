@@ -8,6 +8,11 @@ use pocketmine\{
     Player,
     Server
 };
+use pocketmine\item\{
+	Item,
+	ItemFactory,
+	ItemIds
+};
 use pocketmine\block\Block;
 use pocketmine\tile\Sign;
 use pocketmine\command\{
@@ -44,6 +49,7 @@ use function scandir;
 use function strtolower;
 use function floor;
 use function round;
+use SQLite3;
 
 class Core extends PluginBase{
 
@@ -72,16 +78,26 @@ class Core extends PluginBase{
 	/** @var array $seeMessages */
 	public $seeMessages = [];
 
+	private $lockSession = array();
+	private $unlockSession = array();
+	private $infoSession = array();
+	private $handle;
+	private $itemID;
+
     public function onEnable(){
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig()->getAll();
 		$this->portals = yaml_parse_file($this->getDataFolder() . 'portals.yml');
+		$this->itemID = 131;
+		$this->handle = new SQLite3($this->getDataFolder() . "doors.db");
+		$this->handle->query("CREATE TABLE IF NOT EXISTS doors(door_id INTEGER PRIMARY KEY AUTOINCREMENT,door_name TEXT,location TEXT, world TEXT)");
 		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockBreakEvent', $listener = new Events\PortalEvents($this), EventPriority::HIGHEST, new MethodEventExecutor('Break'), $this, true);
         $this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockPlaceEvent', $listener, EventPriority::HIGHEST, new MethodEventExecutor('Place'), $this, true);
 		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\player\\PlayerMoveEvent', $listener, EventPriority::MONITOR, new MethodEventExecutor('Move'), $this, true);
         $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
 		$this->getServer()->getPluginManager()->registerEvents(new Events\GriefPrevention($this), $this);
+		$this->getServer()->getPluginManager()->registerEvents(new Events\LockEvents($this), $this);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\BroadcastTask($this), 20 * 120);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
@@ -230,6 +246,110 @@ class Core extends PluginBase{
 		}
 		return false;
 	}
+	/**
+     * @param int $x
+     * @param int $y
+     * @param int $z
+     * @param string $worldname
+     * @return mixed
+     */
+	public function getLockedName($x, $y, $z, $worldname){
+        $door_id = $this->getLockedID($x, $y, $z, $worldname);
+        $stmt = $this->handle->prepare("SELECT door_name FROM doors WHERE door_id = :door_id");
+        $stmt->bindParam(":door_id", $door_id, SQLITE3_INTEGER);
+        $result = $stmt->execute();
+        while($row = $result->fetchArray()){
+            return $row["door_name"];
+            break;
+        }
+        $stmt->close();
+    }
+	/**
+     * @param $name
+     */
+    public function unlock($name){
+        $stmt = $this->handle->prepare("DELETE FROM doors WHERE door_name = :name");
+        $stmt->bindParam(":name", $name, SQLITE3_TEXT);
+        $stmt->execute();
+        $stmt->close();
+    }
+	/**
+     * @param Position $position
+     * @param Item $item
+     * @return bool|null
+     */
+    public function isLockedDown(Position $position, Item $item): ?bool{
+        $item_x = $position->getX();
+        $item_y = $position->getY();
+        $item_z = $position->getZ();
+        $result = $this->handle->query("SELECT * FROM doors");
+        $check = null;
+        while ($row = $result->fetchArray()){
+            $row_loc = $row["location"];
+            $loc_array = explode(",", $row_loc);
+            $x = (int)$loc_array[0];
+            $y = (int)$loc_array[1];
+            $z = (int)$loc_array[2];
+            if(($item_x == $x && $item_z == $z) && (abs($item_y - $y) <= 1 || abs($y - $item_y) <= 1) && $position->getLevel()->getName() == $row["world"]){
+                if($item->getCustomName() != $row["door_name"] || $item->getId() != $this->itemID){
+                    $check = true;
+                    break;
+                }else{
+                    $check = false;
+                    break;
+                }
+            }else{
+                $check = null;
+            }
+        }
+        return $check;
+    }
+	/**
+     * @param $event
+     */
+    public function lock($event){
+        $player = $event->getPlayer();
+        $item_x = $event->getBlock()->getX();
+        $item_y = $event->getBlock()->getY();
+        $item_z = $event->getBlock()->getZ();
+        if($this->isLockedDown($event->getBlock(), $event->getItem()) == null){
+            $location = "$item_x, $item_y, $item_z";
+            $world = $event->getPlayer()->getLevel()->getName();
+            $door_name = $this->lockSession[$player->getName()];
+            $stmt = $this->handle->prepare("INSERT INTO DOORS (door_name, location, world) VALUES(:door_name, :location, :world)");
+            $stmt->bindParam(":door_name", $door_name, SQLITE3_TEXT);
+            $stmt->bindParam(":location", $location, SQLITE3_TEXT);
+            $stmt->bindParam(":world", $world, SQLITE3_TEXT);
+            $stmt->execute();
+            $stmt->close();
+            unset($this->lockSession[$player->getName()]);
+        }
+    }
+	/**
+     * @return mixed
+     */
+    public function getAllDoors(){
+        $result = $this->handle->query("SELECT * FROM doors");
+        return $result;
+    }
+	public function getLockedID($x, $y, $z, $worldname){
+        $result = $this->handle->query("SELECT * FROM doors");
+        while($row = $result->fetchArray()){
+            $row_loc = $row["location"];
+            $loc_array = explode(",", $row_loc);
+            $x_j = (int)$loc_array[0];
+            $y_j = (int)$loc_array[1];
+            $z_j = (int)$loc_array[2];
+            if($worldname == $row["world"]){
+                if($x == $x_j && $z == $z_j){
+                    if(abs($y - $y_j) <= 1 || abs($y_j - $y) <= 1){
+                        return $row["door_id"];
+                    }
+                }
+            }
+        }
+    }
+
 
 
 
@@ -593,6 +713,69 @@ class Core extends PluginBase{
                     $sender->sendMessage($cmd->getUsage());
                     return true;
             }
+		}
+		if($cmd->getName() == "lock"){
+			if($sender instanceof Player){
+				if($sender->hasPermission("core.lock.use")){
+					if(isset($args[0])){
+						$this->lockSession[$sender->getName()] = $args[0];
+						$sender->sendMessage($this->mch . TF::GREEN . " Please touch the item you want to lock");
+					}else{
+						$sender->sendMessage($this->mch . TF::GOLD . " Error: Please provide a name for the Key");
+					}
+				}else{
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
+				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
+			}
+		}
+		if($cmd->getName() == "unlock"){
+			if($sender instanceof Player){
+				if($sender->hasPermission("core.unlock.use")){
+					if(isset($args[0])){
+						$this->unlock($args[0]);
+						$sender->sendMessage($this->mch . TF::GREEN . " The item has been unlocked");
+					}else{
+						$this->unlockSession[$sender->getName()] = true;
+						$sender->sendMessage($this->mch . TF::GREEN . " Please touch the item you want to unlock");
+					}
+				}else{
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
+				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
+			}
+		}
+		if($cmd->getName() == "makekey"){
+			if($sender instanceof Player){
+				if($sender->hasPermission("core.makekey.use")){
+					if(isset($args[0])){
+						$item = ItemFactory::get($this->itemID);
+						$item->clearCustomName();
+						$item->setCustomName($args[0]);
+						$sender->getInventory()->addItem($item);
+					}else{
+						$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
+					}
+				}else{
+					$sender->sendMessage($this->mch . TF::GOLD . " Error: Please provide a name for the Key");
+				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
+			}
+		}
+		if($cmd->getName() == "lockedinfo"){
+			if($sender instanceof Player){
+				if($sender->hasPermission("core.lockedinfo.use")){
+					$this->infoSession[$sender->getName()] = true;
+					$sender->sendMessage($this->mch . TF::GREEN . " Please touch the item you want information on");
+				}else{
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
+				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
+			}
 		}
         # All commands after this will likely need modifications more than once.
 		if(strtolower($cmd->getName()) == "hub"){

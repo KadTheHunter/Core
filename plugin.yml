@@ -1,7 +1,7 @@
 name: Core
 main: Core\Core
 api: 3.15.0
-version: 5.6.0
+version: 5.7.1
 mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
@@ -56,6 +56,20 @@ commands:
     description: Main Portals commmand
     usage: /portal pos1|pos2|create|delete|set|list
     permission: core.portals.admin
+  lock:
+    description: Locks Doors, Trapdoors, and Chests
+    usage: /lock <keyName>
+    permission: core.lock.use
+  unlock:
+    description: Unlocks Doors, Trapdoors, and Chests
+    permission: core.unlock.use
+  makekey:
+    description: Makes a key for a Locked Door, Trapdoor or Chest
+    usage: /makekey <keyName>
+    permission: core.makekey.use
+  lockedinfo:
+    description: Gets information on a Locked Door, Trapdoor or Chest
+    permission: core.lockedinfo.use
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
@@ -92,4 +106,22 @@ permissions:
     default: OP
   core.portals.admin:
     description: PORTALS Commands
+    default: OP
+  core.lock.use:
+    description: LOCK Command
+    default: OP
+  core.unlock.use:
+    description: UNLOCK Command
+    default: OP
+  core.makekey.use:
+    description: MAKEKEY Command
+    default: OP
+  core.lockedinfo.use:
+    description: LOCKEDINFO Command
+    default: OP
+  core.locks.break:
+    description: Allows breaking any Locked Doors
+    default: OP
+  core.locks.bypass:
+    description: Allows bypassing any Locked Doors
     default: OP
