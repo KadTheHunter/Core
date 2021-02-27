@@ -562,6 +562,7 @@ class Core extends PluginBase{
                         $sender->sendMessage($this->mch . TF::GOLD . ' Error: A portal with that name does not exist');
                         return true;
                     }
+					$level = $this->getServer()->getLevelByName($this->portals[$name]['level']);
                     for($x = $this->portals[$name]['x']; $x <= $this->portals[$name]['x2']; $x++){
                         for($y = $this->portals[$name]['y']; $y <= $this->portals[$name]['y2']; $y++){
                             for($z = $this->portals[$name]['z']; $z <= $this->portals[$name]['z2']; $z++){
