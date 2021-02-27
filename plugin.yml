@@ -50,6 +50,8 @@ commands:
     aliases: ["pt", "playt"]
   togglemessages:
     description: Allows toggling the rotating messages on/off
+  info:
+    description: Shows the servers Information
   portals:
     description: Main Portals commmand
     usage: /portal pos1|pos2|create|delete|set|list
@@ -59,8 +61,6 @@ commands:
     aliases: ["lobby","spawn"]
   rules:
     description: Shows the servers Rules
-  info:
-    description: Shows the servers Information
 
 permissions:
   core.gmc.use:

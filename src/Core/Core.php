@@ -455,6 +455,13 @@ class Core extends PluginBase{
 				$this->setSeeMessages($sender);
 			}
 		}
+		if(strtolower($cmd->getName()) == "info"){
+			if($sender instanceof Player){
+				$this->infoForm($sender);
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
+			}
+		}
 		if(strtolower($cmd->getName()) == "portal"){
 			if(!isset($args[0])){
                 return false;
@@ -611,13 +618,6 @@ class Core extends PluginBase{
 			    $sender->sendMessage("§f- §eThat's it, have fun §b:)§e");
 			}else{
 				$sender->sendMessage("If you have console access you BETTER know the fucking rules...");
-			}
-		}
-		if(strtolower($cmd->getName()) == "info"){
-			if($sender instanceof Player){
-				$this->infoForm($sender);
-			}else{
-				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		return true;
