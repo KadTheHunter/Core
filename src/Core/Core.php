@@ -300,7 +300,7 @@ class Core extends PluginBase{
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 					$sender->sendMessage($this->mch . TF::GREEN . " Set the time to Day (6000) in your world!");
 				}else{
-					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -313,7 +313,7 @@ class Core extends PluginBase{
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 					$sender->sendMessage($this->mch . TF::GREEN . " Set the time to Night (16000) in your world!");
 				}else{
-					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -351,14 +351,14 @@ class Core extends PluginBase{
 							$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 							$sender->sendMessage($this->mch . TF::GREEN . " You have been teleported to " . TF::GOLD . $world);
 						}else{
-							$sender->sendMessage($this->mch . TF::RED . " Error: World " . TF::GOLD . $world . TF::RED . "does not exist.");
+							$sender->sendMessage($this->mch . TF::GOLD . " Error: World " . TF::GOLD . $world . TF::RED . "does not exist.");
 						}
 					}else{
-						$sender->sendMessage($this->mch . TF::RED . " Error: missing arguments.");
-						$sender->sendMessage($this->mch . TF::RED . " Usage: /tpworld <freebuild|city>");
+						$sender->sendMessage($this->mch . TF::GOLD . " Error: missing arguments.");
+						$sender->sendMessage($this->mch . TF::GREEN . " Usage: /tpworld <freebuild|city>");
 					}
 				}else{
-					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -378,7 +378,7 @@ class Core extends PluginBase{
 				if($sender->hasPermission("core.lightning.use")){
 					$this->Lightning($sender);
 				}else{
-					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
 				}
 			}else{
 				$sender->sendMessage("Please run this command in-game.");
@@ -394,6 +394,7 @@ class Core extends PluginBase{
 				return false;
 			}
 			if(empty($args[0])){
+				$sender->sendMessage($this->mch . TF::GOLD . " Error: Missing arguments.");
 				$sender->sendMessage($this->mch . TF::GREEN . " Usage: /cs <line #> <text>");
 				return false;
 			}
@@ -477,7 +478,7 @@ class Core extends PluginBase{
                         return true;
                     }
                     if(!$sender->hasPermission('core.portals.admin')){
-                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        $sender->sendMessage($this->mch . TF::RED . ' You do not have permission to use this command');
                         return true;
                     }
                     $this->sel1[$sender->getName()] = true;
@@ -489,7 +490,7 @@ class Core extends PluginBase{
                         return true;
                     }
                     if(!$sender->hasPermission('core.portals.admin')){
-                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        $sender->sendMessage($this->mch . TF::RED . ' You do not have permission to use this command');
                         return true;
                     }
                     $this->sel2[$sender->getName()] = true;
@@ -501,7 +502,7 @@ class Core extends PluginBase{
                         return true;
                     }
                     if(!$sender->hasPermission('core.portals.admin')){
-                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        $sender->sendMessage($this->mch . TF::RED . ' You do not have permission to use this command');
                         return true;
                     }
                     if(!isset($this->pos1[$sender->getName()], $this->pos2[$sender->getName()])){
@@ -536,14 +537,14 @@ class Core extends PluginBase{
                     return true;
                 case 'list':
                     if(!$sender->hasPermission('core.portals.admin')){
-                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        $sender->sendMessage($this->mch . TF::RED . ' You do not have permission to use this command');
                         return true;
                     }
                     $sender->sendMessage($this->mch . TF::GREEN . ' Portals: ' . implode(', ', array_keys($this->portals)));
                     return true;
                 case 'delete':
                     if(!$sender->hasPermission('core.portals.admin')){
-                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        $sender->sendMessage($this->mch . TF::RED . ' You do not have permission to use this command');
                         return true;
                     }
                     if(!isset($this->portals[strtolower($args[0])])){
@@ -556,7 +557,7 @@ class Core extends PluginBase{
                     return true;
                 case 'fill':
                     if(!$sender->hasPermission('core.portals.admin')){
-                        $sender->sendMessage($this->mch . TF::RED . ' You don\'t have permission to use this command');
+                        $sender->sendMessage($this->mch . TF::RED . ' You do not have permission to use this command');
                         return true;
                     }
                     if(!isset($args[0])){
