@@ -260,7 +260,6 @@ class Core extends PluginBase{
         $result = $stmt->execute();
         while($row = $result->fetchArray()){
             return $row["door_name"];
-            break;
         }
         $stmt->close();
     }
