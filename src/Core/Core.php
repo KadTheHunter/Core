@@ -264,9 +264,6 @@ class Core extends PluginBase{
         }
         $stmt->close();
     }
-	/**
-     * @param $name
-     */
     public function unlock($name){
         $stmt = $this->handle->prepare("DELETE FROM doors WHERE door_name = :name");
         $stmt->bindParam(":name", $name, SQLITE3_TEXT);
@@ -304,9 +301,6 @@ class Core extends PluginBase{
         }
         return $check;
     }
-	/**
-     * @param $event
-     */
     public function lock($event){
         $player = $event->getPlayer();
         $item_x = $event->getBlock()->getX();
