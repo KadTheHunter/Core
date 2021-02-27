@@ -41,6 +41,9 @@ use jojoe77777\FormAPI\SimpleForm;
 
 use function array_diff;
 use function scandir;
+use function strtolower;
+use function floor;
+use function round;
 
 class Core extends PluginBase{
 
