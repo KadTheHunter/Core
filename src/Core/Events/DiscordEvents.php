@@ -41,6 +41,7 @@ class DiscordEvents implements Listener{
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
         $player = $event->getPlayer()->getDisplayName();
         $message = $event->getMessage();
+        $message = str_replace('@', '', $event->getMessage());
         $msg = new Message();
         $msg->setContent($player . ": " . $message);
         $webHook->send($msg);
