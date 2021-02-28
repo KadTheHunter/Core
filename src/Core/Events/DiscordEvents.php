@@ -32,14 +32,14 @@ class DiscordEvents implements Listener{
     
     public function dJoin(PlayerJoinEvent $event){
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
-        $player = $event->getPlayer();
+        $player = $event->getPlayer()->getDisplayName();
         $msg = new Message();
         $msg->setContent($player . " has joined the server.");
         $webHook->send($msg);
     }
     public function dChat(PlayerChatEvent $event){
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
-        $player = $event->getPlayer();
+        $player = $event->getPlayer()->getDisplayName();
         $message = $event->getMessage();
         $msg = new Message();
         $msg->setContent($player . ": " . $message);
@@ -47,7 +47,7 @@ class DiscordEvents implements Listener{
     }
     public function dQuit(PlayerQuitEvent $event){
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
-        $player = $event->getPlayer();
+        $player = $event->getPlayer()->getDisplayName();
         $msg = new Message();
         $msg->setContent($player . " has left the server.");
         $webHook->send($msg);
