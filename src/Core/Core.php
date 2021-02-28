@@ -464,7 +464,7 @@ class Core extends PluginBase{
 							$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 							$sender->sendMessage($this->mch . TF::GREEN . " You have been teleported to " . TF::GOLD . $world);
 						}else{
-							$sender->sendMessage($this->mch . TF::GOLD . " Error: World " . TF::GOLD . $world . TF::RED . "does not exist.");
+							$sender->sendMessage($this->mch . TF::GOLD . " Error: World " . TF::GREEN . $world . TF::GOLD . " does not exist.");
 						}
 					}else{
 						$sender->sendMessage($this->mch . TF::GOLD . " Error: missing arguments.");
