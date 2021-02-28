@@ -35,7 +35,7 @@ class DiscordEvents implements Listener{
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
         $playerName = $event->getPlayer()->getDisplayName();
         $msg = new Message();
-        if($event->getPlayer()->hasPlayedBefore() == "true"){
+        if(!$event->getPlayer()->hasPlayedBefore() == "true"){
             $msg->setContent($playerName . " has joined for the first time!");
             $webHook->send($msg);
         }else{
