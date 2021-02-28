@@ -96,6 +96,7 @@ class Core extends PluginBase{
         $this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockPlaceEvent', $listener, EventPriority::HIGHEST, new MethodEventExecutor('Place'), $this, true);
 		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\player\\PlayerMoveEvent', $listener, EventPriority::MONITOR, new MethodEventExecutor('Move'), $this, true);
         $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
+		$this->getServer()->getPluginManager()->registerEvents(new Events\DiscordEvents($this), $this);
 		$this->getServer()->getPluginManager()->registerEvents(new Events\LockEvents($this), $this);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\BroadcastTask($this), 20 * 120);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
