@@ -10,15 +10,18 @@ use pocketmine\event\{
 	player\PlayerQuitEvent,
 	player\PlayerDeathEvent,
 	player\PlayerInteractEvent,
+	player\PlayerBucketEmptyEvent,
+    entity\EntityExplodeEvent,
+    block\BlockBurnEvent,
 	block\LeavesDecayEvent
 };
 use pocketmine\{
     Player,
-    Server
+    Server,
+	utils\TextFormat as TF
 };
 use pocketmine\block\Block;
 use pocketmine\tile\Sign;
-use pocketmine\utils\TextFormat as TF;
 
 use Core\Core;
 
@@ -63,6 +66,20 @@ class CoreEvents implements Listener{
 	 * @priority HIGHEST
 	 */
 	public function Decay(LeavesDecayEvent $event) : void{
+		$event->setCancelled(true);
+	}
+
+	#################################################################################
+	###                 ALL EVENTS PAST HERE ARE GRIEF PREVENTION                 ###
+	#################################################################################
+
+	public function Empty(PlayerBucketEmptyEvent $event) : void{
+		$event->setCancelled(true);
+	}
+	public function Explode(EntityExplodeEvent $event) : void{
+		$event->setCancelled(true);
+	}
+	public function Burn(BlockBurnEvent $event) : void{
 		$event->setCancelled(true);
 	}
 }
