@@ -8,6 +8,7 @@ use pocketmine\event\{
     Listener,
     player\PlayerJoinEvent,
     player\PlayerChatEvent,
+    player\PlayerDeathEvent,
     player\PlayerQuitEvent
 };
 use pocketmine\{
@@ -51,6 +52,11 @@ class DiscordEvents implements Listener{
         $msg->setContent($playerName . ": " . $message);
         $webHook->send($msg);
     }
+    public function dDeath(PlayerDeathEvent $event) : void{
+        $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
+        $playerName = $event->getPlayer()->getDisplayName();
+        $msg = new Message();
+        $msg->setContent($playerName . " died");
         $webHook->send($msg);
     }
     public function dQuit(PlayerQuitEvent $event) : void{
