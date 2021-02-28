@@ -30,14 +30,14 @@ class DiscordEvents implements Listener{
         $this->plugin = $plugin;
     }
     
-    public function dJoin(PlayerJoinEvent $event){
+    public function dJoin(PlayerJoinEvent $event) : void{
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
         $player = $event->getPlayer()->getDisplayName();
         $msg = new Message();
         $msg->setContent($player . " has joined the server.");
         $webHook->send($msg);
     }
-    public function dChat(PlayerChatEvent $event){
+    public function dChat(PlayerChatEvent $event) : void{
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
         $player = $event->getPlayer()->getDisplayName();
         $message = $event->getMessage();
@@ -46,7 +46,7 @@ class DiscordEvents implements Listener{
         $msg->setContent($player . ": " . $message);
         $webHook->send($msg);
     }
-    public function dQuit(PlayerQuitEvent $event){
+    public function dQuit(PlayerQuitEvent $event) : void{
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
         $player = $event->getPlayer()->getDisplayName();
         $msg = new Message();
