@@ -8,6 +8,6 @@ projects:
     libs:
     - src: jojoe77777/FormAPI/libFormAPI
       version: ^1.3
-    - src: CortexPE/DiscordWebhookAPI
+    - src: CortexPE/DiscordWebhookAPI/DiscordWebhookAPI
       version: ^1.0.1
 ...
