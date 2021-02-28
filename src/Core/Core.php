@@ -97,8 +97,8 @@ class Core extends PluginBase{
 		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\player\\PlayerMoveEvent', $listener, EventPriority::MONITOR, new MethodEventExecutor('Move'), $this, true);
         $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
 		$this->getServer()->getPluginManager()->registerEvents(new Events\LockEvents($this), $this);
-		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\BroadcastTask($this), 20 * 120);
+		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
             if($this->getServer()->loadLevel($levelName)){
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
