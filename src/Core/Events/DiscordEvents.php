@@ -34,8 +34,13 @@ class DiscordEvents implements Listener{
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
         $playerName = $event->getPlayer()->getDisplayName();
         $msg = new Message();
-        $msg->setContent($player . " has joined the server.");
-        $webHook->send($msg);
+        if($event->getPlayer()->hasPlayedBefore() == "true"){
+            $msg->setContent($playerName . " has joined for the first time!");
+            $webHook->send($msg);
+        }else{
+            $msg->setContent($playerName . " has joined the server");
+            $webHook->send($msg);
+        }
     }
     public function dChat(PlayerChatEvent $event) : void{
         $webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
@@ -43,7 +48,9 @@ class DiscordEvents implements Listener{
         $message = $event->getMessage();
         $message = str_replace('@', '', $event->getMessage());
         $msg = new Message();
-        $msg->setContent($player . ": " . $message);
+        $msg->setContent($playerName . ": " . $message);
+        $webHook->send($msg);
+    }
         $webHook->send($msg);
     }
     public function dQuit(PlayerQuitEvent $event) : void{
