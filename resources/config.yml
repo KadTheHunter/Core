@@ -1,7 +1,0 @@
----
-message-broadcast:
- messages:
-  - "&bMessage #1 &f| &eOnline Players: {TOTALPLAYERS}/{MAXPLAYERS}"
-  - "&bMessage #2 &f| &eOnline Players: {TOTALPLAYERS}/{MAXPLAYERS}"
-  - "&bMessage #3 &f| &eOnline Players: {TOTALPLAYERS}/{MAXPLAYERS}"
-...

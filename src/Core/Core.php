@@ -85,9 +85,6 @@ class Core extends PluginBase{
 	public $itemID;
 
     public function onEnable(){
-		@mkdir($this->getDataFolder());
-		$this->saveDefaultConfig();
-		$this->cfg = $this->getConfig()->getAll();
 		$this->portals = yaml_parse_file($this->getDataFolder() . 'portals.yml');
 		$this->itemID = 131;
 		$this->handle = new SQLite3($this->getDataFolder() . "doors.db");
@@ -98,7 +95,6 @@ class Core extends PluginBase{
         $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
 		$this->getServer()->getPluginManager()->registerEvents(new Events\DiscordEvents($this), $this);
 		$this->getServer()->getPluginManager()->registerEvents(new Events\LockEvents($this), $this);
-		$this->getScheduler()->scheduleRepeatingTask(new Tasks\BroadcastTask($this), 20 * 120);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
             if($this->getServer()->loadLevel($levelName)){
@@ -131,41 +127,6 @@ class Core extends PluginBase{
 		$sound->pitch = 1;
 		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $sound);
     }
-	/**
-	 * @param string $message
-	 * 
-	 * @return string
-	 */
-	public function formatMessage($message){
-		return $this->replaceVars($message, array(
-			"MAXPLAYERS" => $this->getServer()->getMaxPlayers(),
-			"TOTALPLAYERS" => count($this->getServer()->getOnlinePlayers())
-		));
-	}
-	/**
-	 * @param string $str
-	 * 
-	 * @param array $vars
-	 * 
-	 * @return string
-	 */
-	public function replaceVars($str, array $vars){
-		foreach($vars as $key => $value){
-			$str = str_replace("{" . $key . "}", $value, $str);
-		}
-		return $str;
-	}
-	public function isSeeMessages(Player $player) : bool{
-		return isset($this->seeMessages[$player->getLowerCaseName()]);
-	}
-	public function setSeeMessages(Player $player){
-		$this->seeMessages[$player->getLowerCaseName()] = true;
-		$player->sendMessage($this->mch . TF::GREEN . " You have disabled seeing the rotating messages. Do /tm to re-enable them.");
-	}
-	public function unsetSeeMessages(Player $player){
-		unset($this->seeMessages[$player->getLowerCaseName()]);
-		$player->sendMessage($this->mch . TF::GREEN . " You have enabled seeing the rotating messages. Do /tm to disable them.");
-	}
 	/** @var FormAPI $api */
 	public function infoForm(Player $player){
 		$form = new SimpleForm(function (Player $player, $data){
