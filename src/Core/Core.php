@@ -44,6 +44,9 @@ use pocketmine\utils\TextFormat as TF;
 
 use jojoe77777\FormAPI\SimpleForm;
 
+use CortexPE\DiscordWebhookAPI\Message;
+use CortexPE\DiscordWebhookAPI\Webhook;
+
 use function array_diff;
 use function scandir;
 use function strtolower;
