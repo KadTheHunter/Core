@@ -66,17 +66,11 @@ class Core extends PluginBase{
     /** @var array $portals */
     public $portals;
 
-	/** @var array $cfg */
-	public $cfg;
-
 	/** @var array $signLines */
 	public $signLines = [];
 
 	/** @var array $signText */
 	public $signText = [];
-
-	/** @var array $seeMessages */
-	public $seeMessages = [];
 
 	public $lockSession = array();
 	public $unlockSession = array();
@@ -524,20 +518,6 @@ class Core extends PluginBase{
         		$sender->sendMessage($this->mch . TF::GREEN . " Playtime: " . $uptime);
 			}else{
 				$sender->sendMessage("The console is immortal. To measure it's playtime would be impossible.");
-			}
-		}
-		if(strtolower($cmd->getName()) == "togglemessages"){
-			if($this->isSeeMessages($sender)){
-				$this->unsetSeeMessages($sender);
-			}else{
-				$this->setSeeMessages($sender);
-			}
-		}
-		if(strtolower($cmd->getName()) == "info"){
-			if($sender instanceof Player){
-				$this->infoForm($sender);
-			}else{
-				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		if(strtolower($cmd->getName()) == "portal"){
