@@ -1,7 +1,7 @@
 name: Core
 main: Core\Core
 api: 3.15.0
-version: 5.9.3
+version: 5.9.4
 mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
@@ -48,8 +48,6 @@ commands:
   playtime:
     description: Shows how much you've played on the server
     aliases: ["pt", "playt"]
-  togglemessages:
-    description: Allows toggling the rotating messages on/off
   info:
     description: Shows the servers Information
   portals:
