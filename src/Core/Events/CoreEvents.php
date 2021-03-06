@@ -84,8 +84,8 @@ class CoreEvents implements Listener{
 		$event->setCancelled(true);
 	}
 	public function gPlace(BlockPlaceEvent $event) : void{
-		$item = $event->getItem();
-		$bannedItems = array(144, 800); // 800 is literally un-obtainable, and is serving as a placeholder here
+		$item = $event->getItem()->getID();
+		$bannedItems = array(144); 
 		if(in_array($item, $bannedItems)){
 			$event->setCancelled(true);
 			$this->plugin->getLogger()->info($event->getPlayer()->getName() . " tried to place a banned item (ID " . $item . ")");
