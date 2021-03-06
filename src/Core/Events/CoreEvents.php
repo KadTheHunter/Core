@@ -13,7 +13,8 @@ use pocketmine\event\{
 	player\PlayerBucketEmptyEvent,
     entity\EntityExplodeEvent,
     block\BlockBurnEvent,
-	block\LeavesDecayEvent
+	block\LeavesDecayEvent,
+	block\BlockPlaceEvent
 };
 use pocketmine\{
     Player,
@@ -81,5 +82,13 @@ class CoreEvents implements Listener{
 	}
 	public function gBurn(BlockBurnEvent $event) : void{
 		$event->setCancelled(true);
+	}
+	public function gPlace(BlockPlaceEvent $event) : void{
+		$item = $event->getItem();
+		$bannedItems = array(144, 800); // 800 is literally un-obtainable, and is serving as a placeholder here
+		if(in_array($item, $bannedItems)){
+			$event->setCancelled(true);
+			$this->getLogger()->info($event->getPlayer()->getName() . " tried to place a banned item (ID " . $item . ")");
+		}
 	}
 }
