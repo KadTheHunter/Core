@@ -88,7 +88,7 @@ class CoreEvents implements Listener{
 		$bannedItems = array(144, 800); // 800 is literally un-obtainable, and is serving as a placeholder here
 		if(in_array($item, $bannedItems)){
 			$event->setCancelled(true);
-			$this->getLogger()->info($event->getPlayer()->getName() . " tried to place a banned item (ID " . $item . ")");
+			$this->plugin->getLogger()->info($event->getPlayer()->getName() . " tried to place a banned item (ID " . $item . ")");
 		}
 	}
 }
