@@ -73,13 +73,13 @@ class CoreEvents implements Listener{
 	###                 ALL EVENTS PAST HERE ARE GRIEF PREVENTION                 ###
 	#################################################################################
 
-	public function Empty(PlayerBucketEmptyEvent $event) : void{
+	public function gEmpty(PlayerBucketEmptyEvent $event) : void{
 		$event->setCancelled(true);
 	}
-	public function Explode(EntityExplodeEvent $event) : void{
+	public function gExplode(EntityExplodeEvent $event) : void{
 		$event->setCancelled(true);
 	}
-	public function Burn(BlockBurnEvent $event) : void{
+	public function gBurn(BlockBurnEvent $event) : void{
 		$event->setCancelled(true);
 	}
 }
