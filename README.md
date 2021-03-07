@@ -1,3 +1,8 @@
+# ARCHIVED
+This repo is now archived. The server is dead, and I've just given up on this. Feel free to use the Core, but don't expect any updates.
+
+
+
 <a href="https://discord.gg/kMCYT7vda7"><img src="https://discordapp.com/api/guilds/804468935646642227/embed.png" alt="Discord server"/></a> Minecraft PE IP & Port: mchangout.ml:25568
 
 # Info
