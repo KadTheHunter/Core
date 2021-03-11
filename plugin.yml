@@ -1,7 +1,7 @@
 name: Core
 main: Core\Core
 api: 3.15.0
-version: 5.9.6
+version: 5.9.8
 mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
@@ -36,18 +36,11 @@ commands:
   itemid:
     description: Tells you the ID:Meta of the item you're holding.
     aliases: ["ii"]
-  lightning:
-    description: Summons lightning to you
-    permission: core.lightning.use
-    aliases: ["ln", "lightn"]
   changesign:
     description: Allows you to change sign text
     usage: /cs <Line '#'> <Text>
     permission: core.changesign.use
     aliases: ["cs"]
-  playtime:
-    description: Shows how much you've played on the server
-    aliases: ["pt", "playt"]
   info:
     description: Shows the servers Information
   portals:
