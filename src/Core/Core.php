@@ -62,6 +62,9 @@ class Core extends PluginBase{
 
     public $pos2 = [];
 
+	/** @var array $cfg */
+	public $cfg;
+
     /** @var array $portals */
     public $portals;
 
