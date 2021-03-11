@@ -462,21 +462,6 @@ class Core extends PluginBase{
 					break;
 			}
 		}
-                		}
-            		}
-        		}
-        		$uptime = ($minutes !== null ?
-                		($hours !== null ?
-                    		($days !== null ?
-                        		"$days days "
-                        		: "") . "$hours hours "
-                    		: "") . "$minutes minutes "
-                		: "") . "$seconds seconds";
-        		$sender->sendMessage($this->mch . TF::GREEN . " Playtime: " . $uptime);
-			}else{
-				$sender->sendMessage("The console is immortal. To measure it's playtime would be impossible.");
-			}
-		}
 		if(strtolower($cmd->getName()) == "portal"){
 			if(!isset($args[0])){
                 return false;
