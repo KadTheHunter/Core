@@ -78,6 +78,7 @@ class Core extends PluginBase{
 	public $itemID;
 
     public function onEnable(){
+		$this->getServer()->getNetwork()->setName("§a§lMC Hangout Server"); 
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig()->getAll();

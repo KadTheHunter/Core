@@ -1,7 +1,7 @@
 name: Core
 main: Core\Core
 api: 3.15.0
-version: 5.9.8
+version: 5.10.0
 mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
@@ -85,9 +85,6 @@ permissions:
     default: OP
   core.night.use:
     description: NIGHT Command
-    default: OP
-  core.lightning.use:
-    description: Allows usage of all Lightning related things.
     default: OP
   core.tpworld.use:
     description: TPWORLD Command
