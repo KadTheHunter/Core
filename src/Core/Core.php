@@ -462,19 +462,6 @@ class Core extends PluginBase{
 					break;
 			}
 		}
-		if(strtolower($cmd->getName()) == "playtime"){
-			if($sender instanceof Player){
-				$time = ((int) floor(microtime(true) * 1000)) - $sender->getFirstPlayed() ?? microtime();
-        		$seconds = floor($time % 60);
-        		$minutes = null;
-        		$hours = null;
-        		$days = null;
-        		if($time >= 60){
-            		$minutes = floor(($time % 3600) / 60);
-            		if($time >= 3600){
-                		$hours = floor(($time % (3600 * 24)) / 3600);
-                		if($time >= 3600 * 24){
-                    		$days = floor($time / (3600 * 24));
                 		}
             		}
         		}
