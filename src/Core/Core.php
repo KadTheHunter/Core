@@ -31,10 +31,6 @@ use pocketmine\level\{
 	sound\GhastShootSound
 };
 use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\{
-	AddActorPacket,
-	PlaySoundPacket
-};
 use pocketmine\event\EventPriority;
 use pocketmine\plugin\{
 	PluginBase,
@@ -105,28 +101,6 @@ class Core extends PluginBase{
 	}
 	public function onDisable() : void{
         yaml_emit_file($this->getDataFolder() . 'portals.yml', $this->portals);
-    }
-    public function Lightning(Player $player) : void{
-        $light = new AddActorPacket();
-		$light->type = "minecraft:lightning_bolt";
-		$light->entityRuntimeId = Entity::$entityCount++;
-		$light->metadata = [];
-		$light->motion = null;
-		$light->yaw = $player->getYaw();
-		$light->pitch = $player->getPitch();
-		$light->position = new Vector3($player->getX(), $player->getY(), $player->getZ());
-		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $light);
-		$block = $player->getLevel()->getBlock($player->getPosition()->floor()->down());
-		$particle = new DestroyBlockParticle(new Vector3($player->getX(), $player->getY(), $player->getZ()), $block);
-		$player->getLevel()->addParticle($particle);
-		$sound = new PlaySoundPacket();
-		$sound->soundName = "ambient.weather.thunder";
-		$sound->x = $player->getX();
-		$sound->y = $player->getY();
-		$sound->z = $player->getZ();
-		$sound->volume = 1;
-		$sound->pitch = 1;
-		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $sound);
     }
 	/** @var FormAPI $api */
 	public function infoForm(Player $player){
@@ -448,17 +422,6 @@ class Core extends PluginBase{
                 $sender->sendMessage("Please use this command in-game.");
             }
         }
-        if(strtolower($cmd->getName()) == "lightning"){
-			if($sender instanceof Player){
-				if($sender->hasPermission("core.lightning.use")){
-					$this->Lightning($sender);
-				}else{
-					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command.");
-				}
-			}else{
-				$sender->sendMessage("Please run this command in-game.");
-			}
-		}
 		if(strtolower($cmd->getName()) == "changesign"){
 			if(!$sender instanceof Player){
 				$sender->sendMessage("Please use this command in-game.");

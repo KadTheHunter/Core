@@ -8,7 +8,6 @@ use pocketmine\event\{
 	Listener,
 	player\PlayerJoinEvent,
 	player\PlayerQuitEvent,
-	player\PlayerDeathEvent,
 	player\PlayerInteractEvent,
 	player\PlayerBucketEmptyEvent,
     entity\EntityExplodeEvent,
@@ -44,11 +43,6 @@ class CoreEvents implements Listener{
     public function Leave(PlayerQuitEvent $event) : void{
         $name = $event->getPlayer()->getName();
         $event->setQuitMessage("§7[§c§l-§r§7]§r§f " . "$name");
-    }
-    public function Death(PlayerDeathEvent $event) : void{
-		if($event->getPlayer()->hasPermission("core.lightning.use")){
-			$this->plugin->Lightning($event->getPlayer());
-		}
     }
 	public function Interact(PlayerInteractEvent $event) : void{
 		$player = $event->getPlayer();
