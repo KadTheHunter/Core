@@ -101,7 +101,7 @@ class Core extends PluginBase{
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
             }
         }
-		$webHook = new Webhook($this->cfg["webhook"]);
+		$webHook = new Webhook("https://discord.com/api/webhooks/819682703376121947/kDv9lctm9U9zKrgQVSRUbO-y_1qr0FoM05GA3D30OVxTSD3bwVAdW5jMHyPometE7Koc");
         $msg = new Message();
         $msg->setContent("Server disabled\nServer enabled");
         $webHook->send($msg);
