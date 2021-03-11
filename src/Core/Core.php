@@ -78,6 +78,9 @@ class Core extends PluginBase{
 	public $itemID;
 
     public function onEnable(){
+		@mkdir($this->getDataFolder());
+		$this->saveDefaultConfig();
+		$this->cfg = $this->getConfig()->getAll();
 		$this->portals = yaml_parse_file($this->getDataFolder() . 'portals.yml');
 		$this->itemID = 131;
 		$this->handle = new SQLite3($this->getDataFolder() . "doors.db");
@@ -94,7 +97,7 @@ class Core extends PluginBase{
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
             }
         }
-		$webHook = new Webhook("https://discord.com/api/webhooks/815622075674263592/fVskqcks-rXc5zODxWmaeh2ZtrZGrPLPcWkAxD0z3Q_LqBpw2u3y_qbx3XTYwsRJP3La");
+		$webHook = new Webhook($this->cfg["webhook"]);
         $msg = new Message();
         $msg->setContent("Server disabled\nServer enabled");
         $webHook->send($msg);
