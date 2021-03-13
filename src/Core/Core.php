@@ -461,6 +461,13 @@ class Core extends PluginBase{
 					break;
 			}
 		}
+		if(strtolower($cmd->getName()) == "info"){
+			if($sender instanceof Player){
+				$this->infoForm($sender);
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
+			}
+		}
 		if(strtolower($cmd->getName()) == "portal"){
 			if(!isset($args[0])){
                 return false;
