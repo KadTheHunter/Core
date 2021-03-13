@@ -40,9 +40,6 @@ use pocketmine\utils\TextFormat as TF;
 
 use jojoe77777\FormAPI\SimpleForm;
 
-use CortexPE\DiscordWebhookAPI\Message;
-use CortexPE\DiscordWebhookAPI\Webhook;
-
 use function array_diff;
 use function scandir;
 use function strtolower;
@@ -93,7 +90,6 @@ class Core extends PluginBase{
         $this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\block\\BlockPlaceEvent', $listener, EventPriority::HIGHEST, new MethodEventExecutor('Place'), $this, true);
 		$this->getServer()->getPluginManager()->registerEvent('pocketmine\\event\\player\\PlayerMoveEvent', $listener, EventPriority::MONITOR, new MethodEventExecutor('Move'), $this, true);
         $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
-		$this->getServer()->getPluginManager()->registerEvents(new Events\DiscordEvents($this), $this);
 		$this->getServer()->getPluginManager()->registerEvents(new Events\LockEvents($this), $this);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
@@ -101,10 +97,6 @@ class Core extends PluginBase{
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
             }
         }
-		$webHook = new Webhook("https://discord.com/api/webhooks/819682703376121947/kDv9lctm9U9zKrgQVSRUbO-y_1qr0FoM05GA3D30OVxTSD3bwVAdW5jMHyPometE7Koc");
-        $msg = new Message();
-        $msg->setContent("Server disabled\nServer enabled");
-        $webHook->send($msg);
 	}
 	public function onDisable() : void{
         yaml_emit_file($this->getDataFolder() . 'portals.yml', $this->portals);
