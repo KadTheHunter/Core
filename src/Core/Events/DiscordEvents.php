@@ -46,7 +46,6 @@ class DiscordEvents implements Listener{
     public function dChat(PlayerChatEvent $event) : void{
         $webHook = new Webhook("https://discord.com/api/webhooks/819701342171299840/We42z4bWvNG1RTLVKXBZX-EM3nZn5Iyk-Z9A8U9xKYmrrEIT1DeFUXJZgmm4EM1Q3KvQ");
         $playerName = $event->getPlayer()->getDisplayName();
-        $message = $event->getMessage();
         $message = str_replace('@', '', $event->getMessage());
         $msg = new Message();
         $msg->setContent($playerName . ": " . $message);
