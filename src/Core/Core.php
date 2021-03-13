@@ -136,7 +136,7 @@ class Core extends PluginBase{
 						}
 					});
 					$commandsForm->setTitle("§e=== §bCommands List §e===");
-					$commandsForm->setContent("§e/clearinv §f- §bClears your inventory\n§e/friend §f- §bAllows you to friend other players\n§e/gma §f- §bSets you to Adventure gamemode\n§e/gmc §f- §bSets you to Creative gamemode\n§e/gms §f- §bSets you to Survival gamemode\n§e/home §f- §bAllows you to set, modify or delete a Home\n§e/hub §f- §bTeleports you to the Hub\n§e/info §f- §bShows the Information GUI\n§e/itemid §f- §bShows the ID and Meta of the item you're holding\n§e/lay §f- §bAllows you to lay down on any block\n§e/lock §f- §bAllows you to Lock a door, trapdoor, or chest\n§e/nick §f- §bAllows you to set or change your nickname\n§e/nv §f- §bGives you Night Vision, or removes it if you already have it\n§e/playtime §f- §bShows how many Minecraft days you have played on the server\n§e/rules §f- §bShows the server Rules\n§e/sit §f- §bAllows you to sit down on any block\n§e/unlock §f- §bAllows you to unlock a door you previously locked.");
+					$commandsForm->setContent("§e/clearinv §f- §bClears your inventory\n§e/friend §f- §bAllows you to friend other players\n§e/gma §f- §bSets you to Adventure gamemode\n§e/gmc §f- §bSets you to Creative gamemode\n§e/gms §f- §bSets you to Survival gamemode\n§e/home §f- §bAllows you to set, modify or delete a Home\n§e/hub §f- §bTeleports you to the Hub\n§e/info §f- §bShows the Information GUI\n§e/itemid §f- §bShows the ID and Meta of the item you're holding\n§e/lay §f- §bAllows you to lay down on any block\n§e/lock §f- §bAllows you to Lock a door, trapdoor, or chest\n§e/nick §f- §bAllows you to set or change your nickname\n§e/nv §f- §bGives you Night Vision, or removes it if you already have it\n§e/rules §f- §bShows the server Rules\n§e/sit §f- §bAllows you to sit down on any block\n§e/unlock §f- §bAllows you to unlock a door you previously locked.");
 					$commandsForm->addButton("Back");
 					$commandsForm->sendToPlayer($player);
 					break;
@@ -152,7 +152,7 @@ class Core extends PluginBase{
 						}
 					});
 					$contactUs->setTitle("§e=== §bContact Us §e===");
-					$contactUs->setContent("§bYou can find us on our Discord:\n§ehttps://discord.gg/kMCYT7vda7 \n§bor contact the Owner directly on Discord:\n§eKaddicus#5231 \n\n§bAll other inquiries should be directed via email to:\n§ekaddicusthealmighty@gmail.com");
+					$contactUs->setContent("§bYou can find us on our Discord:\n§ehttps://discord.gg/KnzYM5ymdJ \n§bor contact the Owner directly on Discord:\n§eKaddicus#5231 \n\n§bAll other inquiries should be directed via email to:\n§ekaddicusthealmighty@gmail.com");
 					$contactUs->addButton("Back");
 					$contactUs->sendToPlayer($player);
 					break;

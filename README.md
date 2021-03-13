@@ -1,4 +1,4 @@
-<a href="https://discord.gg/kMCYT7vda7"><img src="https://discordapp.com/api/guilds/804468935646642227/embed.png" alt="Discord server"/></a> Minecraft PE IP & Port: mchangout.ml:25568
+<a href="https://discord.gg/KnzYM5ymdJ"><img src="https://discordapp.com/api/guilds/819665770920542209/embed.png" alt="Discord server"/></a> Minecraft PE IP & Port: mchangout.ml:27670
 
 # Info
 So, the only reason this is public is so Poggit can make builds from it. I have no clue why y'all are starring this, but thanks :)
