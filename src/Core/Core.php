@@ -77,8 +77,7 @@ class Core extends PluginBase{
 	public $handle;
 	public $itemID;
 
-    public function onEnable(){
-		$this->getServer()->getNetwork()->setName("§a§lMC Hangout Server"); 
+    public function onEnable(){ 
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig()->getAll();
@@ -92,6 +91,7 @@ class Core extends PluginBase{
         $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
 		$this->getServer()->getPluginManager()->registerEvents(new Events\LockEvents($this), $this);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
+		$this->getServer()->getNetwork()->setName($this->cfg["motd"]);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
             if($this->getServer()->loadLevel($levelName)){
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
