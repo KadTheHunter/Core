@@ -69,12 +69,12 @@ class CoreEvents implements Listener{
 	#################################################################################
 
 	public function gEmpty(PlayerBucketEmptyEvent $event) : void{
-		$player - $event->getPlayer();
+		$player = $event->getPlayer();
 		if($player->hasPermission("core.banitem.bypass")){
 			$event->setCancelled(false);
 		}else{
 			$event->setCancelled(true);
-			$this->plugin->getLogger->info($event->getPlayer()->getName() . " tried to place a Water or Lava bucket.");
+			$this->plugin->getLogger()->info($event->getPlayer()->getName() . " tried to place a Water or Lava bucket.");
 		}
 	}
 	public function gExplode(EntityExplodeEvent $event) : void{
@@ -92,7 +92,7 @@ class CoreEvents implements Listener{
 				$event->setCancelled(false);
 			}else{
 				$event->setCancelled(true);
-				$this->plugin->getLogger->info($event->getPlayer()->getName() . " tried to place a banned item (ID " . $item . ")");
+				$this->plugin->getLogger()->info($event->getPlayer()->getName() . " tried to place a banned item (ID " . $item . ")");
 			}
 		}
 	}
