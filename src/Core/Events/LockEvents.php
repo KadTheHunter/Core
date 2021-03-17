@@ -38,12 +38,12 @@ class LockEvents implements Listener{
         $this->plugin = $plugin;
     }
 
-    public function wireHook(BlockPlaceEvent $event){
+    public function wireHook(BlockPlaceEvent $event) : void{
         if($event->getBlock()->getItemId() == $this->plugin->itemID){
             $event->setCancelled();
         }
     }
-    public function Touch(PlayerInteractEvent $event){
+    public function Touch(PlayerInteractEvent $event) : void{
         $player = $event->getPlayer();
         $block = $event->getBlock();
         if($block instanceof Door || $block instanceof \pocketmine\block\Chest || $block instanceof Trapdoor){
@@ -81,7 +81,7 @@ class LockEvents implements Listener{
             }
         }
     }
-    public function chestTouch(PlayerInteractEvent $event){
+    public function chestTouch(PlayerInteractEvent $event) : void{
         if($event->getBlock()->getItemId() == ItemIds::CHEST){
             $tile = $event->getPlayer()->getLevel()->getTile($event->getBlock());
             if($tile instanceof Chest){
@@ -98,7 +98,7 @@ class LockEvents implements Listener{
             }
         }
     }
-    public function unlockTouch(PlayerInteractEvent $event){
+    public function unlockTouch(PlayerInteractEvent $event) : void{
         $player = $event->getPlayer();
         if(isset($this->plugin->unlockSession[$player->getName()])){
             if($this->plugin->unlockSession[$player->getName()]){
@@ -116,7 +116,7 @@ class LockEvents implements Listener{
             }
         }
     }
-    public function DoorBreak(BlockBreakEvent $event){
+    public function DoorBreak(BlockBreakEvent $event) : void{
         $block = $event->getBlock();
         if($block instanceof Door || $block instanceof \pocketmine\block\Chest || $block instanceof Trapdoor){
             $door_status = $this->plugin->isLockedDown($event->getBlock(), $event->getItem());
