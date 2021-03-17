@@ -112,3 +112,6 @@ permissions:
   core.locks.bypass:
     description: Allows bypassing any Locked Doors
     default: OP
+  core.banitem.bypass:
+    description: Allows bypassing BanItem
+    default: OP
