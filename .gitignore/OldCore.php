@@ -74,7 +74,7 @@ class OldCore extends PluginBase implements Listener{
 		$z = -0.5;
 		$pos = new Position($x, $y, $z, $level);
 		$player->teleport($pos);
-		$player->sendMessage($this->fts . TF::GOLD . " Welcome to MC Hangout Server [KYT]!");
+		$player->sendMessage($this->fts . TF::GOLD . " Welcome to The Building Café [KYT]!");
 		$player->setGamemode(2);
 		$player->getLevel()->addSound(new GhastShootSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
 	}

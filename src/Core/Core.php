@@ -120,7 +120,7 @@ class Core extends PluginBase{
 						}
 					});
 					$infoForm->setTitle("§e=== §bGeneral Information §e===");
-					$infoForm->setContent("§bWelcome to MC Hangout Server! Feel free to build anything you want out in FreeBuild (provided it follows the rules of course!).\n\n§bLava and Water are banned, due to the fact they can be easily abused, however §eVIPs §band §6Staff §bcan get and place them for you, if needed.\n\n§bEntities such as Dropped Items, Experience Orbs and Mobs will clear every 60 seconds, so be careful if you're sharing items by dropping them!");
+					$infoForm->setContent("§bWelcome to The Building Café! Feel free to build anything you want out in FreeBuild (provided it follows the rules of course!).\n\n§bLava and Water are banned, due to the fact they can be easily abused, however §eVIPs §band §6Staff §bcan get and place them for you, if needed.\n\n§bEntities such as Dropped Items, Experience Orbs and Mobs will clear every 60 seconds, so be careful if you're sharing items by dropping them!");
 					$infoForm->addButton("Back");
 					$infoForm->sendToPlayer($player);
 					break;
