@@ -672,7 +672,7 @@ class Core extends PluginBase{
 		}
 		if($cmd->getName() == "idea"){
 			$idea = $this->generateIdea();
-			$sender->sendMessage($this->mch . TF::GREEN . "Idea generated: " . $idea . ".");
+			$sender->sendMessage($this->mch . TF::GREEN . " Idea generated: " . $idea . ".");
 		}
         # All commands after this will likely need modifications more than once.
 		if(strtolower($cmd->getName()) == "hub"){
