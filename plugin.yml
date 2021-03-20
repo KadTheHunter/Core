@@ -60,6 +60,8 @@ commands:
   lockedinfo:
     description: Gets information on a Locked Door, Trapdoor or Chest
     permission: core.lockedinfo.use
+  idea:
+    description: Generates a random Building Idea
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
