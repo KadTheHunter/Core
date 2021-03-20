@@ -281,8 +281,10 @@ class Core extends PluginBase{
 		$adjectives = array("multi-story", "giant", "small", "underground", "hidden", "underwater", "bright", "dismal", "minimalistic", "complex", "water-themed", "lava-themed", "fire-themed", "garden-themed", "tacky", "spooky", "abandoned", "floating", "destroyed", "apocalyptic", "stone-based", "psychedelic", "prehistoric", "gothic", "sunken", "sinking", "ancient", "mountaintop", "viking-themed", "asian-architect themed", "celtic-themed", "winter", "jungle", "glass", "futuristic", "steampunk", "colorful", "ice", "monochrome", "royal", "bloody", "inside out", "corrupted", "holy");
 		$buildings = array("arena", "grocery-store", "blacksmith", "bakery", "flowershop", "school", "hospital", "city-hall", "library", "farm", "tomb", "barn", "house", "beacon", "tower", "fortress", "evil-lair", "restaurant", "club", "castle", "bar", "playground", "beach-house", "space-station", "treasure-room", "torture-chamber", "roller-coaster", "ship", "statue", "hut", "prison", "sacrificial-room", "bedroom", "subway-system", "movie-theater", "stage", "zeppelin", "windmill", "cyber-cafe", "cafe", "warehouse", "stadium", "powerplant", "treehouse", "food-thing", "fountain", "automatic farm", "pixel art", "museum", "country farm", "hotel", "airport", "firestation", "tower", "sewers", "road", "temple", "foritifications", "docks", "palace", "bridge", "catacombs", "hobbit-hole", "city block", "clocktower", "citadel","zoo", "arcade", "lounge", "vault", "factory", "artificial biome", "pool", "bathroom", "cave", "pyramid", "tent", "circus", "train", "gym", "church", "outhouse", "office building", "strip mall", "railroad station", "geyser");
 		$a = array_rand($adjectives);
+		$a_string = $adjectives[$a];
 		$b = array_rand($buildings);
-		$ideaArray = array($a, $b);
+		$b_string = $buildings[$b];
+		$ideaArray = array($a_name, $b_name);
 		$generatedIdea = implode(" ", $ideaArray);
 		return $generatedIdea;
 	}
