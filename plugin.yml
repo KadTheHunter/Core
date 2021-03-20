@@ -44,7 +44,7 @@ commands:
     description: Shows the servers Information
   portals:
     description: Main Portals commmand
-    usage: /portal pos1|pos2|create|delete|set|list
+    usage: /portal <pos1|pos2|create|delete|set|list>
     permission: core.portals.admin
   lock:
     description: Locks Doors, Trapdoors, and Chests
