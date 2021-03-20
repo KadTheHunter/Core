@@ -1,7 +1,7 @@
 name: Core
 main: Core\Core
 api: 3.15.0
-version: 5.10.3
+version: 5.10.4
 load: POSTWORLD
 author: KadTheHunter
 commands:
@@ -62,6 +62,8 @@ commands:
     permission: core.lockedinfo.use
   idea:
     description: Generates a random Building Idea
+  event:
+    description: Shows the latest Build Comp. Event details
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
