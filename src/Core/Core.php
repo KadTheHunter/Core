@@ -284,7 +284,7 @@ class Core extends PluginBase{
 		$a_string = $adjectives[$a];
 		$b = array_rand($buildings);
 		$b_string = $buildings[$b];
-		$ideaArray = array($a_name, $b_name);
+		$ideaArray = array($a_string, $b_string);
 		$generatedIdea = implode(" ", $ideaArray);
 		return $generatedIdea;
 	}
