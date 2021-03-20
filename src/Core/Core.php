@@ -674,6 +674,11 @@ class Core extends PluginBase{
 			$idea = $this->generateIdea();
 			$sender->sendMessage($this->mch . TF::GREEN . " Idea generated: " . $idea . ".");
 		}
+		if($cmd->getName() == "event"){
+			$theme = $this->cfg["comp-theme"];
+			$endDate = $this->cfg["comp-end-date"];
+			$sender->sendMessage($this->mch . TF::GREEN . " This weeks Build Comp. Theme is " . $theme . ", ending on " . $endDate);
+		}
         # All commands after this will likely need modifications more than once.
 		if(strtolower($cmd->getName()) == "hub"){
 			if($sender instanceof Player){
